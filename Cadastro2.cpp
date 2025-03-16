@@ -451,6 +451,20 @@ void registrar_visita(vector<Visitante> &visitantes, int &prox_codigovi, vector<
     }
 }
 
+int calcular_idade(const string &data_nasc)
+{
+    time_t now;
+    struct tm birthdate;
+    time(&now);
+    birthdate = *localtime(&now);
+    sscanf(data_nasc.c_str(), "%d-%d-%d", &birthdate.tm_year, &birthdate.tm_mon, &birthdate.tm_mday);
+    birthdate.tm_year -= 1900;
+    birthdate.tm_mon--;
+    time_t birthtime = mktime(&birthdate);
+    time_t dif = difftime(now, birthtime);
+    return dif / (60 * 60 * 24 * 365);
+}
+
 
 int main(){
     setlocale(LC_ALL, "Portuguese");
