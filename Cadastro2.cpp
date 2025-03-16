@@ -182,6 +182,117 @@ void cadastrar_associado(vector<Associado> &associados, int &prox_codigo, vector
     }
 }
 
+void cadastrar_dependente(vector<Dependente> &dependentes, int &prox_codigode, vector<Associado> &associados, ofstream &Adados, ofstream &Ddados)
+{
+    system("cls");
+    Associado novoAssociado;
+    Dependente novoDependente;
+
+    int opc;
+    int num_dependentes;
+    cout << "Voce deseja adicionar um novo Dependente ou fazer a manutenção do cadastro de um dependente ja existente? " << endl;
+    cout << "1 - Adicionar novo Dependente " << endl;
+    cout << "2 - Fazer a manutenção de um Cadastro " << endl;
+    cin >> opc;
+    if (opc == 1)
+    {
+        novoDependente.codigo = prox_codigode++;
+        novoDependente.codExterno = 0;
+        cout << "===================Cadastro de um novo dependente===================" << endl;
+        cin.ignore();
+        cout << "CPF do associado (respons�vel): ";
+        getline(cin, novoDependente.cpf_associado);
+        cout << "Nome do dependente: ";
+        getline(cin, novoDependente.nome);
+        cout << "Data de nascimento do dependente (AAAA-MM-DD): ";
+        getline(cin, novoDependente.data_nasc);
+        cout << "Sexo do dependente (M/F): ";
+        getline(cin, novoDependente.sexo);
+        cout << "Telefone do dependente: ";
+        getline(cin, novoDependente.telefone);
+        cout << "Email do dependente: ";
+        getline(cin, novoDependente.email);
+        cout << "====================================================================" << endl;
+        for (int i = 0; i < novoDependente.codigo; i++)
+        {
+            if (novoDependente.cpf_associado[novoDependente.codigo] == novoDependente.cpf_associado[i])
+            {
+                cout << "Esse CPF já possue um dependente vinculado a ele.";
+                cout << "Deseja adicionar um novo dependente ou substituir o existente? (1 = adicionar / 2 = substituir)";
+                int op;
+                cin >> op;
+                if (op == 1)
+                {
+                    novoAssociado.mensalidade = 200 + num_dependentes * 30;
+                    dependentes.push_back(novoDependente);
+                    cout << "====================================================================" << endl;
+                    cout << "*******************************************************************************************" << endl;
+                    cout << "Dependente cadastrado com sucesso." << endl;
+                    cout << "Esse é o codigo do seu dependente: " << endl;
+                    cout << novoDependente.codigo << endl;
+                    cout << "!!!Guardio-o para caso for nescessario realizar manutenção ou exclusão de cadastro!!!" << endl;
+                    cout << "*******************************************************************************************" << endl;
+                }
+                else if (op == 2)
+                {
+                    novoAssociado.mensalidade = 200 + num_dependentes * 30;
+                    dependentes.insert(dependentes.begin() + novoDependente.codigo, dependentes[i]);
+                    cout << "====================================================================" << endl;
+                    cout << "*******************************************************************************************" << endl;
+                    cout << "Dependente alterado com sucesso." << endl;
+                    cout << "Esse é o codigo do seu dependente: " << endl;
+                    cout << novoDependente.codigo << endl;
+                    cout << "!!!Guardio-o para caso for nescessario realizar manutenção ou exclusão de cadastro!!!" << endl;
+                    cout << "*******************************************************************************************" << endl;
+                }
+            }
+            else
+            {
+                novoAssociado.mensalidade = 200 + num_dependentes * 30;
+                dependentes.push_back(novoDependente);
+                cout << "====================================================================" << endl;
+                cout << "*******************************************************************************************" << endl;
+                cout << "Dependente cadastrado com sucesso." << endl;
+                cout << "Esse é o codigo do seu dependente: " << endl;
+                cout << novoDependente.codigo << endl;
+                cout << "!!!Guardio-o para caso for nescessario realizar manutenção ou exclusão de cadastro!!!" << endl;
+                cout << "*******************************************************************************************" << endl;
+            }
+        }
+    }
+    else if (opc == 2)
+    {
+        int codigo_de_manutencao;
+        cout << "Digite o codigo do cadastro que deseja alterar: ";
+        cin >> codigo_de_manutencao;
+
+        if (codigo_de_manutencao >= 0 && codigo_de_manutencao < dependentes.size())
+        {
+            cout << "===================Manutecao de cadastro de dependente===================" << endl;
+            cin.ignore();
+            cout << "CPF do associado (respons�vel): ";
+            getline(cin, dependentes[codigo_de_manutencao].cpf_associado);
+            cout << "Nome do dependente: ";
+            getline(cin, dependentes[codigo_de_manutencao].nome);
+            cout << "Data de nascimento do dependente (AAAA-MM-DD): ";
+            getline(cin, dependentes[codigo_de_manutencao].data_nasc);
+            cout << "Sexo do dependente (M/F): ";
+            getline(cin, dependentes[codigo_de_manutencao].sexo);
+            cout << "Telefone do dependente: ";
+            getline(cin, dependentes[codigo_de_manutencao].telefone);
+            cout << "Email do dependente: ";
+            getline(cin, dependentes[codigo_de_manutencao].email);
+            cout << "Dependente alterado com sucesso." << endl;
+            cout << "*******************************************************************************************" << endl;
+            cout << "Esse é o codigo do seu dependente: " << endl;
+            cout << dependentes[codigo_de_manutencao].codigo << endl;
+            cout << "!!!Guardio-o para caso for nescessario realizar manutenção ou exclusão de cadastro!!!" << endl;
+            cout << "*******************************************************************************************" << endl;
+            cout << "====================================================================" << endl;
+        }
+    }
+}
+
 
 int main(){
     setlocale(LC_ALL, "Portuguese");
