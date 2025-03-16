@@ -293,6 +293,85 @@ void cadastrar_dependente(vector<Dependente> &dependentes, int &prox_codigode, v
     }
 }
 
+void cadastrar_visitante(vector<Visitante> &visitantes, int &prox_codigovi, vector<Associado> &associados, int &prox_codigo, vector<Dependente> &dependentes, int &prox_codigode, ofstream &Adados, ofstream &Vdados, ofstream &Ddados)
+{
+    system("cls");
+    Visitante novoVisitante;
+
+    string cpf_associado;
+    cout << "CPF do associado relacionado: ";
+    getline(cin, cpf_associado);
+
+    bool associado_encontrado = false;
+    for (const Associado &associado : associados)
+    {
+        if (associado.cpf == cpf_associado)
+        {
+            novoVisitante.codigo_associado = to_string(associado.codigo);
+            associado_encontrado = true;
+            break;
+        }
+    }
+
+    if (!associado_encontrado)
+    {
+        cout << "Associado n�o encontrado. O visitante deve estar vinculado a um associado." << endl;
+        return;
+    }
+
+    cin.ignore();
+    cout << "Nome do visitante: ";
+    getline(cin, novoVisitante.nome);
+    cout << "Data de nascimento do visitante (AAAA-MM-DD): ";
+    getline(cin, novoVisitante.data_nasc);
+    cout << "Sexo do visitante (M/F): ";
+    getline(cin, novoVisitante.sexo);
+    cout << "Data da visita (inicial) (AAAA-MM-DD): ";
+    getline(cin, novoVisitante.data_visita_inicial);
+    cout << "Data da visita (final) (AAAA-MM-DD): ";
+    getline(cin, novoVisitante.data_visita_final);
+    cin.ignore();
+    cout << "====================================================================" << endl;
+
+    int num_visitas;
+
+    int idade_visitante;
+    for (int i; i < visitantes.size(); i++)
+    {
+        if (novoVisitante.cpf[novoVisitante.codigo] == novoVisitante.cpf[i])
+        {
+            num_visitas++;
+            if (num_visitas >= 3)
+            {
+                cout << "Numero máximo de visitas alcançado!!!" << endl
+                     << "Para contiunuar tornece um Associado ou um Dependente!!!" << endl;
+                cout << "Informe sua idade: ";
+                cin >> idade_visitante;
+                if (idade_visitante >= 18)
+                {
+                    cadastrar_associado(associados, prox_codigo, dependentes, prox_codigode, Adados, Ddados);
+                }
+                else if (idade_visitante < 18)
+                {
+                    cadastrar_dependente(dependentes, prox_codigode, associados, Adados, Ddados);
+                }
+            }
+            else
+            {
+                visitantes.push_back(novoVisitante);
+                cout << "Visitante cadastrado com sucesso." << endl;
+                cout << "====================================================================" << endl;
+            }
+        }
+        else
+        {
+            visitantes.push_back(novoVisitante);
+            cout << "Visitante cadastrado com sucesso." << endl;
+            cout << "====================================================================" << endl;
+        }
+    }
+}
+
 
 int main(){
     setlocale(LC_ALL, "Portuguese");
