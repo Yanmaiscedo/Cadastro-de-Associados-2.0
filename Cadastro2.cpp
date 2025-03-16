@@ -465,6 +465,21 @@ int calcular_idade(const string &data_nasc)
     return dif / (60 * 60 * 24 * 365);
 }
 
+void aviso_maioridade_dependentes(const vector<Dependente> &dependentes)
+{
+    Dependente novoDependente;
+    system("cls");
+    cout << "Dependentes que atingiram a maioridade:" << endl;
+    for (int i = 0; i < dependentes.size(); i++)
+    {
+        int idade = calcular_idade(novoDependente.data_nasc);
+        if (idade >= 18)
+        {
+            cout << "Nome: " << novoDependente.nome << ", CPF: " << novoDependente.cpf_associado << endl;
+        }
+    }
+}
+
 
 int main(){
     setlocale(LC_ALL, "Portuguese");
