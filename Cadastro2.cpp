@@ -480,6 +480,59 @@ void aviso_maioridade_dependentes(const vector<Dependente> &dependentes)
     }
 }
 
+void salvaAD(vector<Associado> &associados, vector<Dependente> &dependentes, ofstream &Adados, ofstream &Ddados)
+{
+    // fstream Adados("Cadastros_de_associados.txt", ios::trunc | ios::out);
+    //  fstream Ddados("Cadastros_de_dependentes.txt", ios::trunc | ios::out);
+    Dependente novoDependente;
+    Associado novoAssociado;
+
+    if (Adados.is_open() && Ddados.is_open())
+    {
+        for (const Associado &associado : associados)
+        {
+            Adados << novoAssociado.nome << ',' << novoAssociado.data_nasc << ',' << novoAssociado.email << endl;
+            for (const Dependente &dependente : dependentes)
+            {
+                if (dependente.cpf_associado == associado.cpf)
+                {
+                    Ddados << "  Dependente - Nome: " << novoDependente.nome << ", Data de Nascimento: " << novoDependente.data_nasc << endl;
+                }
+            }
+        }
+
+        // Fechar o arquivo após a escrita
+        Adados.close();
+        Ddados.close();
+    }
+    else
+    {
+        cout << "Erro ao abrir o arquivo." << endl;
+        return; // Encerrar o programa com código de erro
+    }
+}
+
+void salvaV(vector<Visitante> &visitantes, vector<Associado> &associados, ofstream &Adados, ofstream &Vdados)
+{
+    // fstream Vdados("Cadastros_de_visitantes.txt", ios::trunc | iostream::out);
+    // fstream Adados("Cadastros_de_associados.txt", ios::trunc | iostream::out);
+
+    if (Vdados.is_open())
+    {
+        for (const Associado &associado : associados)
+        {
+            Vdados << "Associado - CPF: " << associado.cpf << ", Nome: " << associado.codigo << endl;
+            for (const Visitante &visitante : visitantes)
+            {
+                if (visitante.codigo_associado == to_string(associado.codigo))
+                {
+                    Vdados << "  Visitante - Nome: " << visitante.nome << ", Data de Visita: " << visitante.data_visita_inicial << " a " << visitante.data_visita_final << endl;
+                }
+            }
+        }
+    }
+}
+
 
 int main(){
     setlocale(LC_ALL, "Portuguese");
