@@ -652,5 +652,67 @@ int main(){
     vector<Dependente> dependentes;
     vector<Visitante> visitantes;
 
+    ofstream Adados("Cadastros_de_associados.txt", ios::trunc);
+    ofstream Ddados("Cadastros_de_dependentes.txt", ios::trunc);
+    ofstream Vdados("Cadastros_de_visitantes.txt", ios::trunc);
+
+    int escolha;
+    while (true)
+    {
+        cout << "=========================Menu Principal=========================" << endl;
+        cout << "1-Cadastro e manutencao de associados" << endl;
+        cout << "2-Cadastro e manutencao de dependentes" << endl;
+        cout << "3-Cadastro de visitantes" << endl;
+        cout << "4-Aviso automatico para dependentes que atingiram a maioridade" << endl;
+        cout << "5-Registro de visita" << endl;
+        cout << "6-Relatorio de dependentes/associados" << endl;
+        cout << "7-Relatorio de visitas por associado" << endl;
+        cout << "8-Encerrar o programa" << endl;
+        cout << "Escolha uma opcao: " << endl;
+        cout << "================================================================" << endl;
+        cin >> escolha;
+
+        switch (escolha)
+        {
+        case 1:
+            cadastrar_associado(associados, prox_codigo, dependentes, prox_codigode, Adados, Ddados);
+            break;
+        case 2:
+            cadastrar_dependente(dependentes, prox_codigode, associados, Adados, Ddados);
+            break;
+        case 3:
+            cadastrar_visitante(visitantes, prox_codigovi, associados, prox_codigo, dependentes, prox_codigode, Adados, Vdados, Ddados);
+            break;
+        case 4:
+            aviso_maioridade_dependentes(dependentes);
+            break;
+        case 5:
+            registrar_visita(visitantes, prox_codigovi, associados, prox_codigo, dependentes, prox_codigode, Adados, Vdados, Ddados);
+            break;
+        case 6:
+            relatorio_dependentes_associados(associados, dependentes, Adados, Ddados);
+            break;
+        case 7:
+            relatorio_visitas_por_associado(visitantes, associados, Adados, Vdados);
+            break;
+        // case 8:
+        // exclusao_de_cadastro(associados, prox_codigo, dependentes, prox_codigode);
+        // break;
+        case 8:
+            cout << "Programa encerrado." << endl;
+            salvaAD(associados, dependentes, Adados, Ddados);
+            salvaV(visitantes, associados, Adados, Vdados);
+            Adados.close();
+            Ddados.close();
+            Vdados.close();
+
+            // salvar_dados("associados.dat", associados);
+            // salvar_dados("dependentes.dat", dependentes);
+            // salvar_dados("visitantes.dat", visitantes);
+            return 0;
+        default:
+            cout << "Opicao invalida. Tente novamente." << endl;
+        }
+    }
     return 0;
 }
