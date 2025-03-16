@@ -533,6 +533,112 @@ void salvaV(vector<Visitante> &visitantes, vector<Associado> &associados, ofstre
     }
 }
 
+void relatorio_dependentes_associados(vector<Associado> &associados, vector<Dependente> &dependentes, ofstream &Adados, ofstream &Ddados)
+{
+    Associado novoAssociado;
+    Dependente novoDependente;
+    system("cls");
+    int i;
+    cout << "Relatrio de dependentes/associados:" << endl;
+    for (size_t i = 0; i < associados.size(); ++i)
+    {
+        cout << "Índice: " << associados[i].codigo << ", Nome: " << associados[i].nome << ", Idade: " << associados[i].data_nasc << ", E-mail: " << associados[i].email << endl;
+        for (size_t j = 0; j < dependentes.size(); ++j)
+        {
+            if (novoDependente.cpf_associado == novoAssociado.cpf)
+            {
+                cout << "  Dependente - Nome: " << dependentes[j].nome << ", Data de Nascimento: " << dependentes[j].data_nasc << endl;
+            }
+        }
+    }
+    cout << endl;
+}
+/*
+// Função para excluir algum cadastro que poderia ser implementada
+ void exclusao_de_cadastro(vector<Associado> &associados, int &prox_codigo, vector<Dependente> &dependentes, int &prox_codigode)
+{
+    Dependente dependente;
+    Associado associado;
+    string nomizin;
+    int opção, Acpf, D.cpf;
+    cout << "Deseja excluir o cadastro de um Associado ou de um Dependente (1 = Associado / 2= Dependente)?";
+    cin >> opção;
+    if (opção == 1)
+    {
+        cout << "digite o cpf do associado que desejas excluir: ";
+        cin >> Acpf;
+        for (int i = 0; i < associado.codigo; i++)
+        {
+            if (Acpf == associado.cpf[i]) ////////////////////////////////////////////////////////////////////
+            {
+                // associados.erase(associado[i]);
+                cout << "Associado excluido com sucesso!!!";
+                for (int i = 0; i < associado.codigo; i++)
+                {
+                    for (int i = 0; i < dependente.codigo; i++)
+                    {
+                        if (dependente.cpf_associado[i] == Acpf) ////////////////////////////////////////////////////////////////////
+                        {
+                            // dependentes.erase(dependente[i]);
+                            cout << "Dependentes ligados a esse associado excluidos com sucesso!!!";
+                        }
+                        else
+                            cout << "Esse nome não esta cadastrado, c é besta?";
+                    }
+                }
+            }
+            else
+                cout << "Esse cpf não esta cadastrado, c é besta?";
+        }
+    }
+    else if (opção == 2)
+    {
+        cout << "digite o cpf do associado responsável pelo dependente que desejas excluir: ";
+        cin >> Acpf;
+        for (int i = 0; i < associado.codigo; i++)
+        {
+            if (Acpf == dependente.cpf_associado[i])
+            {
+                for (int i = 0; i < dependente.codigo; i++)
+                {
+                    cout << "Digite o nome do dependente: ";
+                    cin << nomizin;
+                    if (nomizin == dependente.nome[i]) ////////////////////////////////////////////////////////////////////
+                    {
+                        // dependentes.erase(dependente[i]);
+                        cout << "Dependente excluido com sucesso!!!";
+                    }
+                    else
+                        cout << "Esse nome não esta cadastrado, c é besta?";
+                }
+            }
+            else
+                cout << "Esse cpf não esta cadastrado, c é besta?";
+        }
+    }
+}
+*/
+void relatorio_visitas_por_associado(vector<Visitante> &visitantes, vector<Associado> &associados, ofstream &Adados, ofstream &Vdados)
+{
+    Associado associado;
+    Dependente dependente;
+    Visitante visitante;
+
+    system("cls");
+    cout << "Relat�rio de visitas por associado:" << endl;
+    for (size_t i = 0; i < associados.size(); ++i)
+    {
+        cout << "Associado - CPF: " << associados[i].cpf << ", Nome: " << associados[i].codigo << endl;
+        for (size_t j = 0; j < visitantes.size(); ++j)
+        {
+            if (visitante.codigo_associado == to_string(associado.codigo))
+            {
+                cout << "  Visitante - Nome: " << visitantes[j].nome << ", Data de Visita: " << visitantes[j].data_visita_inicial << " a " << visitantes[j].data_visita_final << endl;
+            }
+        }
+    }
+}
+
 
 int main(){
     setlocale(LC_ALL, "Portuguese");
